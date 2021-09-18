@@ -3,6 +3,8 @@
     <input
         :placeholder="label"
         class="field"
+        :value="modelValue"
+
     >
 </template>
 
@@ -13,7 +15,11 @@ export default {
         label: {
             type: String,
             default: ''
-        } 
+        },
+        modelValue: {
+            type: [String, Number],
+            default: ''
+        }
     }
 }
 </script>
