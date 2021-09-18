@@ -1,9 +1,7 @@
 <template>
     <label>{{ label }}</label>
-    <input 
-        v-model="event.title"
-        type="text" 
-        placeholder="Title"
+    <input
+        :placeholder="label"
         class="field"
     >
 </template>
