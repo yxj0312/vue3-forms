@@ -1,5 +1,5 @@
 <template>
-    <label>Title</label>
+    <label>{{ label }}</label>
     <input 
         v-model="event.title"
         type="text" 
@@ -7,3 +7,15 @@
         class="field"
     >
 </template>
+
+<script>
+
+export default {
+    props: {
+        label: {
+            type: String,
+            default: ''
+        } 
+    }
+}
+</script>
