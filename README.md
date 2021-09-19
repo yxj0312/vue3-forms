@@ -152,3 +152,5 @@ In the case of our BaseInput component, we want to be able to inject attributes 
 ```
 
 With this small change, the input elements will now correctly receive the type binding from the parent, and our CSS classes will be applied.
+
+## L3 - Base Select
