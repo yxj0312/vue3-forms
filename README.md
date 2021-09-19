@@ -2,7 +2,7 @@
 
 ## L2 Base Input
 
-## v-model: Emitting the update:modelValue event
+## V-model: Emitting the update:modelValue event
 
 All components that are capable of being v-modeled have to emit an event in order for the parent to be able to catch the updates to that component’s data.
 
@@ -130,3 +130,25 @@ Our components seem to be “working”, but there seems to be a problem with th
 If we inspect the component further, it seems that our type attribute is nowhere to be found. We want to be able to assign attributes like type into the component’s input when we set them on the instance in the parent.
 
 Let’s take a look at how to achieve this.
+
+## Assigning the $attrs to the input
+
+In Vue, whenever you pass down attributes, classes and styles from a parent to a child like we are doing with the type in our BaseInput component, Vue will attempt to automatically figure out where inside your template these attributes should be injected.
+
+In components with a single wrapping element, also known as single root components, this behavior is very straightforward. Vue will simply inject all the attributes, classes and styles into the root element.
+
+In multi-root components, such as our BaseInput, Vue can’t figure out without our help which one of the nodes, or fragments, it should inject the attributes to — so Vue simply gives up and issues a warning.
+
+In the case of our BaseInput component, we want to be able to inject attributes directly into the input, so we have to manually bind the $attrs object to it. Let’s go ahead and do that now by adding v-bind="$attrs” to our input element.
+
+```javaScript
+<input
+  v-bind="$attrs"
+  :value="modelValue"
+  :placeholder="label"
+  @input="$emit('update:modelValue', $event.target.value)"
+  class="field"
+>
+```
+
+With this small change, the input elements will now correctly receive the type binding from the parent, and our CSS classes will be applied.
