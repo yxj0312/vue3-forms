@@ -9,10 +9,10 @@
         }"
       >
         <option
-          v-for="option in categories"
+          v-for="option in options"
           :value="option"
           :key="option"
-          :selected="option === event.category"
+          :selected="option === modelValue"
         >{{ option }}</option>
       </select>
 </template>
@@ -27,6 +27,10 @@ export default {
     modelValue: {
       type: [String, Number],
       default: ''
+    },
+    options: {
+      type: Array,
+      required: true
     }
   }
 }
