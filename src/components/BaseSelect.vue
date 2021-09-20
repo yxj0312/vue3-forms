@@ -1,6 +1,6 @@
 <template>
     <label v-if="label">{{ label }}</label>
-      <select v-model="event.category">
+      <select>
         <option
           v-for="option in categories"
           :value="option"
@@ -15,6 +15,10 @@ export default {
   props: {
     label: {
       type: String,
+      default: ''
+    },
+    modelValue: {
+      type: [String, Number],
       default: ''
     }
   }
