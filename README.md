@@ -154,3 +154,32 @@ In the case of our BaseInput component, we want to be able to inject attributes 
 With this small change, the input elements will now correctly receive the type binding from the parent, and our CSS classes will be applied.
 
 ## L3 - Base Select
+
+## L4 - Auto-importing components
+
+Let’s navigate to the file main.js and take a look at what’s happening there together.
+
+First we import createApp from Vue, in order to create and later mount our application. We also import the App.vue component to set it as the entry point of our application.
+
+Please note that this is not specific to auto-importing components, but part of the process for creating and mounting our Vue 3 application.
+
+Finally, we import upperFirst and camelCase from Lodash, a JavaScript library that provides utility functions for common programming tasks.
+
+- upperCase converts the first character of a string to upper case
+- camelCase converts a string to camel case (camelCase isWritten likeThis)
+
+Next up, we use Webpack’s function require.context to allow webpack to know that it needs to require all of the files in the components folder that start with the Base prefix. Notice that we are also allowing it to require both .vueand .js extensions.
+
+Further down into the code we’re going to call keys() on our requireComponent to get an array of fileNames, which will contain the route to each of our “Base” components.
+
+We are going to loop through each of our components in this array. Ready?
+
+First, we get the component object by using the filename to extract if from the array.
+
+Next, we use Lodash’s upperFirst and camelCase functions to ensure that both file names written like BaseInput.vue and base-input.vue, or even baseInput.vue get turned into BaseInput.vue.
+
+The regular expression here will strip anything before the component name and the extension, leaving us with just the name of the component BaseInput.
+
+Finally, we use the component name that we just extracted and the component configuration that we got earlier to register the component as a global component.
+
+We wrap up the file by mounting our application into the element with an id of app.
