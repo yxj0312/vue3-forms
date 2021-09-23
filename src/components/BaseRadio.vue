@@ -19,6 +19,10 @@ export default {
     modelValue: {
       type: [String, Number],
       default: ''
+    },
+    value: {
+      type: [String, Number],
+      required: true
     }
   }
 }
