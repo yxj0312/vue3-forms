@@ -5,5 +5,21 @@
         :value="1"
         name="pets"
         />
-    <label>Yes</label>
+    <label v-if="label">{{ label }}</label>
 </template>
+
+<script>
+
+export default {
+  props: {
+    label: {
+      type: String,
+      default: ''
+    },
+    modelValue: {
+      type: [String, Number],
+      default: ''
+    }
+  }
+}
+</script>
