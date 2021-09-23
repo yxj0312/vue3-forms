@@ -1,0 +1,9 @@
+<template>
+    <input
+        type="radio"
+        v-model="event.pets"
+        :value="1"
+        name="pets"
+        />
+    <label>Yes</label>
+</template>
