@@ -4,6 +4,7 @@
         :key="option.value"
         :label="option.value"
         :value="option.value"
+        :name="name"
     />
 </template>
 
@@ -12,6 +13,10 @@ export default {
   props: {
     options: {
       type: Array,
+      required: true
+    },
+    name: {
+      type: String,
       required: true
     }
   }
