@@ -36,7 +36,6 @@
           v-model="event.pets"
           name="pets"
           :options="petOptions"
-          vertical
         />
       </div>
 

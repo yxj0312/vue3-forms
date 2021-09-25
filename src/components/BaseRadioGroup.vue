@@ -3,6 +3,9 @@
     v-for="option in options"
     :key="option.value"
     :is="vertical? 'div': 'span'"
+    :class="{
+      'horizontal': !vertical
+    }"
   >
     <BaseRadio
         :label="option.label"
@@ -36,3 +39,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.horizontal {
+  margin-right: 20px;
+}
+</style>
