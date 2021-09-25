@@ -5,6 +5,8 @@
         :label="option.value"
         :value="option.value"
         :name="name"
+        :modelValue="modelValue"
+        @update:modelValue="$$emit('update:modelValue', $event)"
     />
 </template>
 
@@ -17,6 +19,10 @@ export default {
     },
     name: {
       type: String,
+      required: true
+    },
+    modelValue: {
+      type: [String, Number],
       required: true
     }
   }
