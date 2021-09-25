@@ -24,6 +24,10 @@ export default {
     modelValue: {
       type: [String, Number],
       required: true
+    },
+    vertical: {
+      type: Boolean,
+      default: false
     }
   }
 }
