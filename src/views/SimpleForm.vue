@@ -88,6 +88,11 @@ export default {
         { label: 'No', value: 0 }
       ]
     }
+  },
+  methods: {
+    sendForm () {
+      // We will handle form submission here!
+    }
   }
 }
 </script>
