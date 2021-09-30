@@ -183,3 +183,42 @@ The regular expression here will strip anything before the component name and th
 Finally, we use the component name that we just extracted and the component configuration that we got earlier to register the component as a global component.
 
 We wrap up the file by mounting our application into the element with an id of app.
+
+## L9 Basic a11y for our components
+
+### Appropriate types
+
+n HTML we have a wide variety of input elements to craft our forms, but one element in particular rules them all. The catch-all input allows us the flexibility of creating text inputs, but we can also transform it into checkboxes and radio buttons with the type property.
+
+A common mistake is to ignore this type property when creating text inputs. Most of us know and commonly use two regularly: type email and password.
+
+When using a specific type in an input element, not only do we get better autocompletion for our form, but it also allows screen readers to better understand what type of data we want to retrieve from the user. A type of tel for example, will provide the user on a mobile phone with a handy numeric keyboard with phone symbols like + * #.
+
+Your users with mobility problems will definitely be grateful for this one!
+
+Bottom line: Don’t forget to set your type, even when the input is not of type password or email.
+
+Here is a list of the available types for an input element:
+
+- button
+- checkbox
+- color
+- date
+- datetime-local
+- email
+- file
+- hidden
+- image
+- month
+- number
+- password
+- radio
+- range
+- reset
+- search
+- submit
+- tel
+- text
+- time
+- url
+- week
