@@ -222,3 +222,17 @@ Here is a list of the available types for an input element:
 - time
 - url
 - week
+
+### Use Fieldset and Legend
+
+Two often overlooked or under-taught elements in HTML are fieldset and legend.
+
+In forms, usually we group our inputs logically. For example, you would usually code your form to first ask the user for their personal data like Name, Last Name, and Phone. Later on, another section may ask them for a shipping address.
+
+For accessible users, this information may not be as immediately available without having to tab through the whole form, this is where <fieldset> and <legend> come to play.
+
+You should always try to wrap up sections of your form inside a fieldset element. This will logically group the inputs inside of it. Then, the first element of the fieldset will be a legend element which will provide a Title for that particular fieldset.
+
+If for some reason you don’t want the legend to show on your form (usually because of design reasons), you can always position it absolutely, outside of the visible screen.
+
+For our current form in SimpleForm.vue, we can wrap up our logical sections inside fieldset like in the following example:
