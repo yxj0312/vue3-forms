@@ -188,7 +188,7 @@ We wrap up the file by mounting our application into the element with an id of a
 
 ### Appropriate types
 
-n HTML we have a wide variety of input elements to craft our forms, but one element in particular rules them all. The catch-all input allows us the flexibility of creating text inputs, but we can also transform it into checkboxes and radio buttons with the type property.
+In HTML we have a wide variety of input elements to craft our forms, but one element in particular rules them all. The catch-all input allows us the flexibility of creating text inputs, but we can also transform it into checkboxes and radio buttons with the type property.
 
 A common mistake is to ignore this type property when creating text inputs. Most of us know and commonly use two regularly: type email and password.
 
