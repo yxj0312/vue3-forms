@@ -234,5 +234,3 @@ For accessible users, this information may not be as immediately available witho
 You should always try to wrap up sections of your form inside a fieldset element. This will logically group the inputs inside of it. Then, the first element of the fieldset will be a legend element which will provide a Title for that particular fieldset.
 
 If for some reason you don’t want the legend to show on your form (usually because of design reasons), you can always position it absolutely, outside of the visible screen.
-
-For our current form in SimpleForm.vue, we can wrap up our logical sections inside fieldset like in the following example:
