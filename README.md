@@ -242,3 +242,112 @@ A popular design pattern that emerged a few years ago used the placeholder attri
 Placeholders should only be used to describe the intended value, but not as a replacement for a descriptive label. Placeholders disappear whenever a user starts typing into the field, forcing the user to keep in mind what that field was expecting. Additionally, some users can have problems differentiating between a field with a placeholder and a field that has pre-populated or filled content.
 
 As far as screen readers go, each screen reader may treat the placeholder attribute differently, but as long as a correctly set label is in place, it shouldn’t be much of a concern to leave it in.
+
+### Labels
+
+Speaking about labels, let’s talk about a really powerful accessibility feature that is sadly very commonly underused, or misused, in forms.
+
+If we navigate to FireFox again in the accessibility tab and inspect our Title input, we can see a ⚠️ icon right next to it. This means we have a problem.
+
+Let’s take a look at the information panel. The Checks section is already telling us the issue: “Form elements should have a visible text label”
+
+This may come as a surprise, since our Title field clearly has a label on top of it describing what we intend for this input.
+
+For our sighted users, however, this is not evident. We have not yet linked these two HTML elements together, and that is an assumption that a screen reader cannot afford to make. Thankfully this is a very easy fix!
+
+There are a few ways to link an input element with its label, the first one is to actually nest the input inside of the label element.
+
+This is one of the easiest ways to make sure that your input is always correctly linked to the related label, but I want to go into depth into the second and usually more “common” way to relate HTML elements because it’s going to come in handy later when we look at error messages. This method involves using IDs.
+
+Let’s jump directly into our BaseInput component and figure out how to create a relationship between our <label> and <input> by using an ID.
+
+You may be thinking that perhaps the most obvious option would be to add a property, so that the parent can determine the id of the element, and then we don’t have to worry about it inside our component. And you would be right… But what if there were a way we could dynamically generate unique number identifiers for every component in our form without having to resort to manual props?
+
+We are going to create a Vue 3 composable that allows us to create these dynamic unique identifiers, or UUIDs for short. I know this is a bit of a jump from the pace of the course, but if you need a refresher on Vue 3 composition API or composables we have a course titled Build a Gmail Clone with Vue 3 here on Vue Mastery to get you up to speed. At any rate, don’t worry too much, it’s going to be a really simple one.
+
+If you’re following along with the repository files, I’ve gone ahead and created a UniqueID.js file inside the features folder.
+
+UniqueID.js
+
+```javaScript
+let UUID = 0
+
+export default function UniqueID () {
+  const getID = () => {
+    UUID++
+    return UUID
+  }
+
+  return {
+    getID
+  }
+}
+```
+
+First we declare a let variable with a default value of 0. This will increase as we create more and more components - the first component will have an id of 1, the second of 2, and so on.
+
+We are going to export a function UniqueID. When executed, this function will return an object, which contains a function under the property getID. This function will increase by 1 the global UUID counter and return it.
+
+Know also that there are plenty of UUID libraries out there that you can use in place of this custom solution, but I wanted to show you just how easy it can be.
+
+Let’s look at this in action to better understand it, by looking at BaseInput.vue.
+
+First, we are going to import our new composable.
+
+BaseInput.vue
+
+```JavaScript
+<script>
+import UniqueID from '../features/UniqueID'
+export default { ... }
+</script>
+```
+
+Now that we have it ready, we can generate a new unique ID inside our component’s setup method. Let’s go ahead and do that.
+
+```BaseInput.vue
+<script>
+import UniqueID from '../features/UniqueID'
+export default {
+  props: { ... },
+  setup () {
+    const uuid = UniqueID().getID()
+    return {
+      uuid
+    }
+  }
+}
+</script>
+```
+
+Notice that we are executing both the UniqueIDcomposable, and then the getID method inside. This will give us a completely unique ID number every time a component is instantiated.
+
+Finally, we return an object with the uuid so that we can use it in our template.
+
+Speaking of which, let’s go back into the template and tie the label and input together.
+
+To accomplish this, we need to give the input element an id attribute value. We will bind the id to our uuid. After we have the input setup with its own unique ID, we can now tell the label that its describing the input by setting the for attribute of the label.
+
+Note: All of these are vanilla HTML attributes, no crazy Vue magic here other than the ease of binding all of them.
+
+BaseInput.vue
+
+```JavaScript
+<template>
+  <label :for="uuid" v-if="label">{{ label }}</label>
+  <input
+    v-bind="$attrs"
+    :value="modelValue"
+    :placeholder="label"
+    @input="$emit('update:modelValue', $event.target.value)"
+    class="field"
+    :id="uuid"
+  >
+</template>
+```
+
+Let’s head back to the browser. The first thing I want to point out to you is that the warning sign on our field is gone. And if we check under the bit where it says relations inside the accessible properties, we can see now that it shows a new entry: labelledby: "Title". If you hover over this element you can now see in the browser which element exactly its referring to. Neat, right?
+
+Now, if we take a look at the inspector tab, and we look at our input elements, we can see that they have automatically been assigned ids 1 and 2, respectively.
+
+We still need to add a uuid to our Checkbox, Radio, and Select components. Are you up for a challenge? Try doing this bit yourself. It will be as straightforward as replicating exactly what we just did here with BaseInput.
