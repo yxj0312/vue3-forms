@@ -234,3 +234,11 @@ For accessible users, this information may not be as immediately available witho
 You should always try to wrap up sections of your form inside a fieldset element. This will logically group the inputs inside of it. Then, the first element of the fieldset will be a legend element which will provide a Title for that particular fieldset.
 
 If for some reason you don’t want the legend to show on your form (usually because of design reasons), you can always position it absolutely, outside of the visible screen.
+
+### Do NOT rely on placeholders
+
+A popular design pattern that emerged a few years ago used the placeholder attribute of inputs to describe the type of content that the element was expecting. Sadly this is still sometimes used now-a-days instead of a proper label.
+
+Placeholders should only be used to describe the intended value, but not as a replacement for a descriptive label. Placeholders disappear whenever a user starts typing into the field, forcing the user to keep in mind what that field was expecting. Additionally, some users can have problems differentiating between a field with a placeholder and a field that has pre-populated or filled content.
+
+As far as screen readers go, each screen reader may treat the placeholder attribute differently, but as long as a correctly set label is in place, it shouldn’t be much of a concern to leave it in.
