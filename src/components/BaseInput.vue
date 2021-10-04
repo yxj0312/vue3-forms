@@ -1,12 +1,12 @@
 <template>
-    <label v-if="label">{{ label }}</label>
+    <label :for="uuid" v-if="label">{{ label }}</label>
     <input
         v-bind="$attrs"
         :placeholder="label"
         class="field"
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
-
+        :id="uuid"
     >
 </template>
 
