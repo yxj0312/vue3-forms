@@ -8,6 +8,12 @@
         @input="$emit('update:modelValue', $event.target.value)"
         :id="uuid"
     >
+    <p
+      v-if="error"
+      class="errorMessage"
+    >
+      {{ error }}
+    </p>
 </template>
 
 <script>
@@ -21,6 +27,10 @@ export default {
     },
     modelValue: {
       type: [String, Number],
+      default: ''
+    },
+    error: {
+      type: String,
       default: ''
     }
   },
