@@ -351,3 +351,72 @@ Let’s head back to the browser. The first thing I want to point out to you is 
 Now, if we take a look at the inspector tab, and we look at our input elements, we can see that they have automatically been assigned ids 1 and 2, respectively.
 
 We still need to add a uuid to our Checkbox, Radio, and Select components. Are you up for a challenge? Try doing this bit yourself. It will be as straightforward as replicating exactly what we just did here with BaseInput.
+
+### Accessible errors
+
+Have you ever filled out a form just to hit the submit button and nothing seemed to work? It was clearly not submitting, and there was no visible error anywhere, yet something was clearly wrong. This situation is not foreign to most Internet users, but imagine the exasperation when you require accessible tools and the form doesn’t easily tell you what’s wrong with your inputs.
+
+Let’s first go into our BaseInput.vue component and add a new prop, error, that will allow us to set a String with an error message in case the component is in an error state.
+
+BaseInput.vue
+
+```javaScript
+props: {
+  label: {
+    type: String,
+    default: ''
+  },
+  modelValue: {
+    type: [String, Number],
+    default: ''
+  },
+  error: {
+    type: String,
+    default: ''
+  }
+},
+
+```
+
+We will display this error below our input field whenever an error is present, so if the error property is set to anything other than an empty string.
+
+```javaScript
+<template>
+  <label :for="uuid" v-if="label">{{ label }}</label>
+  <input
+    v-bind="$attrs"
+    :value="modelValue"
+    :placeholder="label"
+    @input="$emit('update:modelValue', $event.target.value)"
+    class="field"
+    :id="uuid"
+  >
+  <p
+    v-if="error"
+    class="errorMessage"
+  >
+    {{ error }}
+  </p>
+</template>
+```
+
+We will also go back to SimpleForm.vue and add an error message to our “Title” input, so that we can see how it behaves on the browser. Note that we also added a class of errorMessage that will simply color it red.
+
+```javaScript
+<BaseInput
+  v-model="event.title"
+  label="Title"
+  type="text"
+  error="This input has an error!"
+/>
+```
+
+Now let’s look at the browser, the error is correctly displaying under the title once the error prop is set. Notice that the “Description” input which is also a BaseInput is displaying no error because the prop error is not set to anything.
+
+If we open our Accessibility tab in Firefox once again and inspect the input element, we can see that there is nothing tying the error to the actual title input. This is where most forms fall short. Just because the error message is “near” the input doesn’t mean that a screen reader will be able to identify it as part of the error.
+
+Luckily there is a straightforward solution to this problem: the aria-describedby attribute. This attribute allows us to declare directly on the input element which other elements describe it.
+
+The attribute can take a string list of IDs for other HTML elements in the page, so first we’re going to add a unique ID to our label. Luckily, we already have a UUID number associated with the instance of the component to do it.
+
+Let’s head back to BaseInput and add the id binding to the error p tag.
