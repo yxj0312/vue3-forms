@@ -7,10 +7,12 @@
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
         :id="uuid"
+        :aria-describedby="error? `${uuid}-error` :  null"
     >
     <p
       v-if="error"
       class="errorMessage"
+      :id="`${uuid}-error`"
     >
       {{ error }}
     </p>
