@@ -8,6 +8,7 @@
         @input="$emit('update:modelValue', $event.target.value)"
         :id="uuid"
         :aria-describedby="error? `${uuid}-error` :  null"
+        :aria-invalid="error? true: false"
     >
     <p
       v-if="error"
