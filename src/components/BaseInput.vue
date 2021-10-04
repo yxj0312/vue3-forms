@@ -13,6 +13,7 @@
       v-if="error"
       class="errorMessage"
       :id="`${uuid}-error`"
+      aria-live="assertive"
     >
       {{ error }}
     </p>
