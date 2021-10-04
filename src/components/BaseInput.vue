@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import UniqueID from '../features/UniqueID'
 
 export default {
   props: {
@@ -21,6 +22,13 @@ export default {
     modelValue: {
       type: [String, Number],
       default: ''
+    }
+  },
+  setup () {
+    const uuid = UniqueID().getID()
+
+    return {
+      uuid
     }
   }
 }
