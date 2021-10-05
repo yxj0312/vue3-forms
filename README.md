@@ -420,3 +420,15 @@ Luckily there is a straightforward solution to this problem: the aria-describedb
 The attribute can take a string list of IDs for other HTML elements in the page, so first we’re going to add a unique ID to our label. Luckily, we already have a UUID number associated with the instance of the component to do it.
 
 Let’s head back to BaseInput and add the id binding to the error p tag.
+
+### Explicit input state
+
+Another thing we can quickly add to our input to make it even more accessible is the aria-invalid attribute. A mistake that I’ve seen many forms make is to try and rely on a red border around an invalid input. For obvious reasons, this is not accessible.
+
+We’ve already taken steps into accessible errors, but let’s make sure to also notify screen readers on the invalid state of an input to provide better feedback for our users.
+
+We are going to add the aria-invalid attribute to our input, and toggle it off and on depending on whether the error prop is set. When the input is valid, null will make it so that the attribute is not added to the input element.
+
+If we go back to the browser and inspect the input using the Accessibility tool on Firefox, we can see that the state of “invalid” has now been added to the active states of the input.
+
+Other noteworthy states that we could also add attributes for are readonly, disabled and required. These three can be set directly with HTML5 attributes of the same name, or with their aria counterparts: aria-readonly, aria-disabled, and aria-required.
