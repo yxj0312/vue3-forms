@@ -432,3 +432,13 @@ We are going to add the aria-invalid attribute to our input, and toggle it off a
 If we go back to the browser and inspect the input using the Accessibility tool on Firefox, we can see that the state of “invalid” has now been added to the active states of the input.
 
 Other noteworthy states that we could also add attributes for are readonly, disabled and required. These three can be set directly with HTML5 attributes of the same name, or with their aria counterparts: aria-readonly, aria-disabled, and aria-required.
+
+### Don’t disable the submit button
+
+If a form is not valid, then it makes sense to set the disabled attribute to true on the submit button so that the user can’t submit the form, right? We can even style the button with a different color to convey that it won’t be clickable.
+
+There’s a big problem with this though. Users that rely on screen readers will not get any feedback at all, the button will be completely ignored by the screen reader when tabbing through the form. This clearly can be very confusing and frustrating.
+
+I suggest instead that you make any and all checks to make sure your form is valid before submitting it on the sendForm method that we created on the SimpleForm component. If everything checks out, we submit the form normally.
+
+If something is wrong, then set the necessary errors in your form with the tools that we just learned to notify the user that something is wrong.
