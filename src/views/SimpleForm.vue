@@ -1,69 +1,85 @@
 <template>
   <div>
     <h1>Create an event</h1>
-    <form @submit.prevent="sendForm">
-      <BaseSelect
-        :options="categories"
-        v-model="event.category"
-        label="Select a category"
+    <form>
+
+      <label>Select a category</label>
+      <select v-model="event.category">
+        <option
+          v-for="option in categories"
+          :value="option"
+          :key="option"
+          :selected="option === event.category"
+        >{{ option }}</option>
+      </select>
+
+      <h3>Name & describe your event</h3>
+
+      <label>Title</label>
+      <input
+        v-model="event.title"
+        type="text"
+        placeholder="Title"
+        class="field"
+      >
+
+      <label>Description</label>
+      <input
+        v-model="event.description"
+        type="text"
+        placeholder="Description"
+        class="field"
       />
 
-      <fieldset>
-        <legend>Name & describe your event</legend>
+      <h3>Where is your event?</h3>
 
-        <BaseInput
-          v-model="event.title"
-          label="Title"
-          type="text"
-          error="This input has a error"
-        />
+      <label>Location</label>
+      <input
+        v-model="event.location"
+        type="text"
+        placeholder="Location"
+        class="field"
+      />
 
-        <BaseInput
-          v-model="event.description"
-          label="Description"
-          type="text"
-        />
-      </fieldset>
-
-      <fieldset>
-        <legend>Where is your event?</legend>
-
-        <BaseInput
-          v-model="event.location"
-          label="Location"
-          type="text"
-        />
-      </fieldset>
-
-      <fieldset>
-        <legend>Pets</legend>
-
-        <p>Are pets allowed?</p>
-        <div>
-          <BaseRadioGroup
+      <h3>Are pets allowed?</h3>
+      <div>
+        <input
+            type="radio"
             v-model="event.pets"
+            :value="1"
             name="pets"
-            :options="petOptions"
           />
-        </div>
-      </fieldset>
+        <label>Yes</label>
+      </div>
 
-      <fieldset>
-        <legend>Extras</legend>
-        <div>
-          <BaseCheckbox
-            v-model="event.extras.catering"
-            label="Catering"
-          />
-        </div>
+      <div>
+        <input
+          type="radio"
+          v-model="event.pets"
+          :value="0"
+          name="pets"
+        />
+        <label>No</label>
+      </div>
 
-        <div>
-          <BaseCheckbox
-            v-model="event.extras.music"
-            label="Live music"
-          />
-        </div>
-      </fieldset>
+      <h3>Extras</h3>
+      <div>
+        <input
+          type="checkbox"
+          v-model="event.extras.catering"
+          class="field"
+        />
+        <label>Catering</label>
+      </div>
+
+      <div>
+        <input
+          type="checkbox"
+          v-model="event.extras.music"
+          class="field"
+        />
+        <label>Live music</label>
+      </div>
 
       <button type="submit">Submit</button>
     </form>
@@ -73,7 +89,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data () {
     return {
@@ -96,40 +111,8 @@ export default {
           catering: false,
           music: false
         }
-      },
-      petOptions: [
-        { label: 'Yes', value: 1 },
-        { label: 'No', value: 0 }
-      ]
-    }
-  },
-  methods: {
-    sendForm (e) {
-      axios.post(
-        'https://my-json-server.typicode.com/Code-Pop/Vue-3-Forms/events',
-        this.event
-      )
-        .then(function (response) {
-          console.log('Response', response)
-        })
-        .catch(function (err) {
-          console.log('Error', err)
-        })
+      }
     }
   }
 }
 </script>
-
-<style>
-fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-
-legend {
-  font-size: 28px;
-  font-weight: 700;
-  margin-top: 20px;
-}
-</style>
